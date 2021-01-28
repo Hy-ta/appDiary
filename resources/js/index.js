@@ -20,6 +20,7 @@ function Index() {
     const Top = () => {
         return(
             <div>
+                <h1>test</h1>
                 <Main />
             </div>
         )
@@ -27,7 +28,7 @@ function Index() {
     return (
         <Router>
             <Switch>
-                <PublicRoute exact path="/" component={Top} /> 
+                <PublicRoute exact path="/" component={Login} /> 
                 <PublicRoute resricted={false} path="/login" component={Login} />
                 <PublicRoute resricted={true} path="/sign_up" component={SignUp} />
                 <PrivateRoute path="/search" component={Search} />
