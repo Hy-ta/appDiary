@@ -13,4 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/{path?}', 'app');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+// Route::get('/{any}', function(){
+//     return view('app');
+// })->where('any', '.*');
+
+// Route::view('/{path?}', 'app');
+
+
+Route::get('/', function () {
+     return View('app'); 
+    });
+
+Route::group(['prefix' => 'api'], function () {
+    Route::get('me', 'UserController@me');
+});
