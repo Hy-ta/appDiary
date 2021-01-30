@@ -1,6 +1,7 @@
 {
     "private": true,
     "scripts": {
+        "heroku-postbuild": "cd public && npm install && npm install --only=dev --no-shrinkwrap && npm run",
         "dev": "npm run development",
         "development": "mix",
         "watch": "mix watch",

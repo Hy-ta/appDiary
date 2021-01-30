@@ -28,7 +28,7 @@ function Index() {
     return (
         <Router>
             <Switch>
-                <PublicRoute exact path="/" component={Login} /> 
+                <PublicRoute exact path="/" component={Top} /> 
                 <PublicRoute resricted={false} path="/login" component={Login} />
                 <PublicRoute resricted={true} path="/sign_up" component={SignUp} />
                 <PrivateRoute path="/search" component={Search} />
