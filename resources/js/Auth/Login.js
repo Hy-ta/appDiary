@@ -86,7 +86,7 @@ class Login extends Component {
       <div className="card">
         <div className="card-header"><h1>Login</h1></div>
           <div className="card-body">
-          <Form className="py-3">
+          <Form className="containers shadow py-3">
 
             <FormGroup className="form-group row">
               <Label htmlFor="email" className="col-md-4 col-form-label text-md-right">Email:</Label>

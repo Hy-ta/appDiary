@@ -9,6 +9,9 @@ import axios from 'axios';
 
 const Search = () => {
     const [searchValue, setSearchValue] = useState('');
+    const [searchStDateValue, setSearchStDateValue] = useState('');
+    const [searchEdDateValue, setSearchEdDateValue] = useState('');
+
     const [searchArray, setSearchArray] = useState([]);
     const [errMessage, setErrMessage] = useState('');
 
@@ -29,9 +32,9 @@ const Search = () => {
             } 
     };
 
-    const getSearchHandler = async (searchValue) => {
+    const getSearchHandler = async (searchValue, searchStDateValue, searchEdDateValue) => {
         try{
-            axios.get(`api/diary/search?title=${searchValue ? searchValue : ''}`)
+            axios.get(`api/diary/search?title=${searchValue ? searchValue : ''}&startDate=${searchStDateValue ? searchStDateValue: ''}&endDate=${searchEdDateValue ? searchEdDateValue: ''}`)
                     .then(res => {
                         if(res){
                             setSearchArray(res.data);
@@ -50,8 +53,8 @@ const Search = () => {
     },[])
 
     useEffect(() => {
-        getSearchHandler(searchValue)
-    }, [searchValue]);
+        getSearchHandler(searchValue, searchStDateValue, searchEdDateValue)
+    }, [searchValue, searchStDateValue, searchEdDateValue]);
 
     const DataArray = () => {
         sessionStorage.user = JSON.stringify({ name: "name" });
@@ -71,13 +74,17 @@ const Search = () => {
                     />
                     <InputForm 
                         value={searchValue}
+                        valueSt={searchStDateValue}
+                        valueEd={searchEdDateValue}
                         setSearchValue={setSearchValue}
+                        setSearchStDateValue={setSearchStDateValue}
+                        setSearchEdDateValue={setSearchEdDateValue}
                         err={errMessage}
                     />
                     <Table 
                         state={searchArray}
                     />
-                    <PageNation />    
+                    {/* <PageNation />     */}
                  
             </div> 
         </div>  

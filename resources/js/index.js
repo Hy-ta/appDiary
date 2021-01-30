@@ -20,7 +20,6 @@ function Index() {
     const Top = () => {
         return(
             <div>
-                <h1>test</h1>
                 <Main />
             </div>
         )

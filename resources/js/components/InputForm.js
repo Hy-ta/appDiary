@@ -56,8 +56,8 @@ class InputForm extends Component {
                                           type="date" 
                                           id="start" 
                                           name="startDate"    
-                                          value={this.state.startDate} 
-                                          onChange={this.handleNameChange}
+                                          value={this.props.valueSt} 
+                                          onChange={(e) => this.props.setSearchStDateValue(e.target.value)}
                                           className="form-control"
                                          />
                                 </div>
@@ -70,8 +70,8 @@ class InputForm extends Component {
                                             type="date" 
                                             id="start" 
                                             name="endDate" 
-                                            value={this.state.endDate} 
-                                            onChange={this.handleNameChange}
+                                            value={this.props.valueEd} 
+                                            onChange={(e) => this.props.setSearchEdDateValue(e.target.value)}
                                             />   
                                 </div>
                             </FormGroup>
@@ -79,11 +79,11 @@ class InputForm extends Component {
                 
                             <FormGroup className="py-3" >
                                 <div className="row py-2">
-                                      <div className="col-sm-1">
+                                      <div className="col-sm-2">
                                         <Label htmlFor="exampleFormControlInput1">Process:</Label>
                                       </div>
                                                     
-                                      <div className="form-check col-sm-1">
+                                      <div className="form-check col-sm-2">
                                         <Input 
                                           className="form-check-input" 
                                           type="radio" 
@@ -94,74 +94,36 @@ class InputForm extends Component {
                                            
                                         />
                                         <Label className="form-check-Label" htmlFor="gridRadios1">
-                                          毎週
+                                          Everyday
                                         </Label>
                                       </div>
                   
-                                      <div className="form-check col-1">
+                                      <div className="form-check col-2">
                                         <Input className="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2" />
                                         <Label className="form-check-Label" htmlFor="gridRadios2">
-                                          毎月
+                                          Every Month
                                         </Label>
                                       </div>
                   
-                                      <div className="form-check col-sm-1">
+                                      <div className="form-check col-sm-2">
                                         <Input className="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" />
                                         <Label className="form-check-Label" htmlFor="gridRadios3">
-                                          四半期
+                                        fourth quarter
                                         </Label>
                                       </div>
                   
-                                      <div className="form-check col-sm-1">
+                                      <div className="form-check col-sm-2">
                                           <Input className="form-check-input" type="radio" name="gridRadios" id="gridRadios4" value="option4" />
                                           <Label className="form-check-Label" htmlFor="gridRadios4">
-                                          その他
+                                          Other
                                           </Label>
                                       </div>
-                              
- 
+
                                 {/* <!---------------
                                       status  
                                     ---------------> */}
-
-                                      
-                                   
-                                      <div className="mx-4 col-sm-1"><Label htmlFor="exampleFormControlInput1">Status:</Label></div>
-                                        <div className="form-check col-sm-1">
-                                          <Input className="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"  />
-                                          <Label className="form-check-Label" htmlFor="gridRadios1">
-                                            非公開
-                                          </Label>
-                                        </div>
-                    
-                                        <div className="form-check col-sm-1">
-                                          <Input className="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2" />
-                                          <Label className="form-check-Label" htmlFor="gridRadios2">
-                                            運用開始前
-                                          </Label>
-                                        </div>
-                    
-                                        <div className="form-check col-sm-1">
-                                          <Input className="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" />
-                                          <Label className="form-check-Label" htmlFor="gridRadios3">
-                                            運用中
-                                          </Label>
-                                        </div>
-                    
-                                        <div className="form-check col-sm-1">
-                                            <Input className="form-check-input" type="radio" name="gridRadios" id="gridRadios4" value="option4" />
-                                            <Label className="form-check-Label" htmlFor="gridRadios4">
-                                            運用終了
-                                            </Label>
-                                        </div>  
-                                      </div>
-                                    </FormGroup>
-                
-                                    
-                                        <div className="form-group py-2">
-                                            <Button className="btn-sm btn-primary searchBtn" type="submit" value="Submit">検索</Button>
-                                        </div>
-                        
+                                    </div>     
+                                  </FormGroup>
                         </Form>
                     </div>
         )

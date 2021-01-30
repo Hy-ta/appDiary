@@ -19,11 +19,15 @@ class DiaryController extends Controller
         $validatedData = $request->validate([
             'title' => 'required',
             'description' => 'required',
+            'startDate' => 'required',
+            'endDate' => 'required'
             ]);
 
         $diary = Diary::create([
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
+            'startDate' => $validatedData['startDate'],
+            'endDate' => $validatedData['endDate'],
             'void_flg' => false
         ]);
             return $diary->toJson();
@@ -40,6 +44,8 @@ class DiaryController extends Controller
     public function search(Request $request)
     {
         $title = $request->title;
+        $stDate = $request->startDate;
+        $edDate = $request->endDate;
 
         $searchData = Diary::where('title', 'like', '%' . $title . '%')
                             ->orderBy('created_at', 'DESC')->limit(5)->get();

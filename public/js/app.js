@@ -2113,7 +2113,7 @@ var Login = /*#__PURE__*/function (_Component) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
           className: "card-body",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-            className: "py-3",
+            className: "containers shadow py-3",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
               className: "form-group row",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
@@ -3025,6 +3025,10 @@ var NewDiary = /*#__PURE__*/function (_Component) {
     _this.state = {
       title: '',
       description: '',
+      startDate: '',
+      endDate: '',
+      stDate: '',
+      edDate: '',
       errors: []
     };
     _this.onChangeHandler = _this.onChangeHandler.bind(_assertThisInitialized(_this));
@@ -3047,7 +3051,9 @@ var NewDiary = /*#__PURE__*/function (_Component) {
       e.preventDefault();
       var data = {
         title: this.state.title,
-        description: this.state.description
+        description: this.state.description,
+        startDate: this.state.startDate,
+        endDate: this.state.endDate
       };
       axios__WEBPACK_IMPORTED_MODULE_1___default().post("api/diary/create", data).then(function (res) {
         console.log('request successed!', res);
@@ -3055,6 +3061,10 @@ var NewDiary = /*#__PURE__*/function (_Component) {
         _this2.props.history.push('/search');
       })["catch"](function (err) {
         console.log('error request failed..', err);
+
+        _this2.setState({
+          errors: err.response.data.errors
+        });
       });
     }
   }, {
@@ -3073,7 +3083,15 @@ var NewDiary = /*#__PURE__*/function (_Component) {
           })
         });
       }
-    }
+    } // dateValidateHandler(){
+    //     var stDate = this.state.startDate;
+    //     var edDate = this.state.endDate;
+    //     var regExp = /(\d{1,2})\/(\d{1,2})\/(\d{2,4})/;
+    //     if(parseInt(edDate.replace(regExp, "$3$2$1")) > parseInt(stDate.replace(regExp, "$3$2$1"))){
+    //         alert("greater!")
+    //     }       
+    // }
+
   }, {
     key: "render",
     value: function render() {
@@ -3098,15 +3116,14 @@ var NewDiary = /*#__PURE__*/function (_Component) {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                       className: "form-group",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-                        htmlFor: "name",
                         children: "Title: "
                       }), this.state.errors && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", {
                         className: "error",
                         children: [" ", this.state.errors.message, " "]
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-                        id: "name",
+                        id: "title",
                         type: "text",
-                        className: "form-control ".concat(this.hasErrorFor('name') ? 'is-invalid' : ''),
+                        className: "form-control ".concat(this.hasErrorFor('title') ? 'is-invalid' : ''),
                         name: "title",
                         value: this.state.title,
                         onChange: this.onChangeHandler
@@ -3124,10 +3141,39 @@ var NewDiary = /*#__PURE__*/function (_Component) {
                         value: this.state.description,
                         onChange: this.onChangeHandler
                       }), this.renderErrorFor('description')]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-                      className: "btn btn-primary",
-                      type: "submit",
-                      children: "Create"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                      className: "form-group1",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                        htmlFor: "startDate",
+                        children: "Start Date"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                        id: "startDate",
+                        type: "date",
+                        className: "form-control ".concat(this.hasErrorFor('startDate') ? 'is-invalid' : ''),
+                        name: "startDate",
+                        value: this.state.startDate,
+                        onChange: this.onChangeHandler
+                      }), this.renderErrorFor('startDate')]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                      className: "form-group2",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                        htmlFor: "endDate",
+                        children: "End Date"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                        id: "endDate",
+                        type: "date",
+                        className: "form-control ".concat(this.hasErrorFor('endDate') ? 'is-invalid' : ''),
+                        name: "endDate",
+                        value: this.state.endDate,
+                        onChange: this.onChangeHandler
+                      }), this.renderErrorFor('endDate')]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                      className: "py-3 text-right",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                        className: "btn btn-primary py-2",
+                        type: "submit",
+                        children: "Create"
+                      })
                     })]
                   })
                 })]
@@ -3250,25 +3296,35 @@ var Search = function Search() {
       searchValue = _useState2[0],
       setSearchValue = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
-      searchArray = _useState4[0],
-      setSearchArray = _useState4[1];
+      searchStDateValue = _useState4[0],
+      setSearchStDateValue = _useState4[1];
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
       _useState6 = _slicedToArray(_useState5, 2),
-      errMessage = _useState6[0],
-      setErrMessage = _useState6[1];
+      searchEdDateValue = _useState6[0],
+      setSearchEdDateValue = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
       _useState8 = _slicedToArray(_useState7, 2),
-      check = _useState8[0],
-      setChecked = _useState8[1];
+      searchArray = _useState8[0],
+      setSearchArray = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(true),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
       _useState10 = _slicedToArray(_useState9, 2),
-      isLoading = _useState10[0],
-      setIsLoading = _useState10[1];
+      errMessage = _useState10[0],
+      setErrMessage = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      check = _useState12[0],
+      setChecked = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(true),
+      _useState14 = _slicedToArray(_useState13, 2),
+      isLoading = _useState14[0],
+      setIsLoading = _useState14[1];
 
   var storage = localStorage.getItem('userData'); // console.log(localStorage)
   // console.log("sssssss",userData)
@@ -3284,13 +3340,13 @@ var Search = function Search() {
   };
 
   var getSearchHandler = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(searchValue) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(searchValue, searchStDateValue, searchEdDateValue) {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               try {
-                axios__WEBPACK_IMPORTED_MODULE_8___default().get("api/diary/search?title=".concat(searchValue ? searchValue : '')).then(function (res) {
+                axios__WEBPACK_IMPORTED_MODULE_8___default().get("api/diary/search?title=".concat(searchValue ? searchValue : '', "&startDate=").concat(searchStDateValue ? searchStDateValue : '', "&endDate=").concat(searchEdDateValue ? searchEdDateValue : '')).then(function (res) {
                   if (res) {
                     setSearchArray(res.data);
                     setIsLoading(false);
@@ -3309,7 +3365,7 @@ var Search = function Search() {
       }, _callee);
     }));
 
-    return function getSearchHandler(_x) {
+    return function getSearchHandler(_x, _x2, _x3) {
       return _ref.apply(this, arguments);
     };
   }();
@@ -3318,8 +3374,8 @@ var Search = function Search() {
     userInfo(), DataArray();
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    getSearchHandler(searchValue);
-  }, [searchValue]);
+    getSearchHandler(searchValue, searchStDateValue, searchEdDateValue);
+  }, [searchValue, searchStDateValue, searchEdDateValue]);
 
   var DataArray = function DataArray() {
     sessionStorage.user = JSON.stringify({
@@ -3338,11 +3394,15 @@ var Search = function Search() {
         storage: storage
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_InputForm__WEBPACK_IMPORTED_MODULE_5__.default, {
         value: searchValue,
+        valueSt: searchStDateValue,
+        valueEd: searchEdDateValue,
         setSearchValue: setSearchValue,
+        setSearchStDateValue: setSearchStDateValue,
+        setSearchEdDateValue: setSearchEdDateValue,
         err: errMessage
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Table__WEBPACK_IMPORTED_MODULE_3__.default, {
         state: searchArray
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_PagiNaton__WEBPACK_IMPORTED_MODULE_6__.default, {})]
+      })]
     })
   });
 };
@@ -3504,7 +3564,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/FormGroup.js");
 /* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/Label.js");
 /* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/Input.js");
-/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/Button.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 
@@ -3609,8 +3668,10 @@ var InputForm = /*#__PURE__*/function (_Component) {
                 type: "date",
                 id: "start",
                 name: "startDate",
-                value: this.state.startDate,
-                onChange: this.handleNameChange,
+                value: this.props.valueSt,
+                onChange: function onChange(e) {
+                  return _this2.props.setSearchStDateValue(e.target.value);
+                },
                 className: "form-control"
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
@@ -3624,8 +3685,10 @@ var InputForm = /*#__PURE__*/function (_Component) {
                 type: "date",
                 id: "start",
                 name: "endDate",
-                value: this.state.endDate,
-                onChange: this.handleNameChange
+                value: this.props.valueEd,
+                onChange: function onChange(e) {
+                  return _this2.props.setSearchEdDateValue(e.target.value);
+                }
               })
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.default, {
@@ -3633,13 +3696,13 @@ var InputForm = /*#__PURE__*/function (_Component) {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
               className: "row py-2",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                className: "col-sm-1",
+                className: "col-sm-2",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
                   htmlFor: "exampleFormControlInput1",
                   children: "Process:"
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "form-check col-sm-1",
+                className: "form-check col-sm-2",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
                   className: "form-check-input",
                   type: "radio",
@@ -3650,10 +3713,10 @@ var InputForm = /*#__PURE__*/function (_Component) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
                   className: "form-check-Label",
                   htmlFor: "gridRadios1",
-                  children: "\u6BCE\u9031"
+                  children: "Everyday"
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "form-check col-1",
+                className: "form-check col-2",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
                   className: "form-check-input",
                   type: "radio",
@@ -3663,10 +3726,10 @@ var InputForm = /*#__PURE__*/function (_Component) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
                   className: "form-check-Label",
                   htmlFor: "gridRadios2",
-                  children: "\u6BCE\u6708"
+                  children: "Every Month"
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "form-check col-sm-1",
+                className: "form-check col-sm-2",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
                   className: "form-check-input",
                   type: "radio",
@@ -3676,10 +3739,10 @@ var InputForm = /*#__PURE__*/function (_Component) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
                   className: "form-check-Label",
                   htmlFor: "gridRadios3",
-                  children: "\u56DB\u534A\u671F"
+                  children: "fourth quarter"
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "form-check col-sm-1",
+                className: "form-check col-sm-2",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
                   className: "form-check-input",
                   type: "radio",
@@ -3689,75 +3752,9 @@ var InputForm = /*#__PURE__*/function (_Component) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
                   className: "form-check-Label",
                   htmlFor: "gridRadios4",
-                  children: "\u305D\u306E\u4ED6"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                className: "mx-4 col-sm-1",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-                  htmlFor: "exampleFormControlInput1",
-                  children: "Status:"
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "form-check col-sm-1",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-                  className: "form-check-input",
-                  type: "radio",
-                  name: "gridRadios",
-                  id: "gridRadios1",
-                  value: "option1"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-                  className: "form-check-Label",
-                  htmlFor: "gridRadios1",
-                  children: "\u975E\u516C\u958B"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "form-check col-sm-1",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-                  className: "form-check-input",
-                  type: "radio",
-                  name: "gridRadios",
-                  id: "gridRadios2",
-                  value: "option2"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-                  className: "form-check-Label",
-                  htmlFor: "gridRadios2",
-                  children: "\u904B\u7528\u958B\u59CB\u524D"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "form-check col-sm-1",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-                  className: "form-check-input",
-                  type: "radio",
-                  name: "gridRadios",
-                  id: "gridRadios3",
-                  value: "option3"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-                  className: "form-check-Label",
-                  htmlFor: "gridRadios3",
-                  children: "\u904B\u7528\u4E2D"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "form-check col-sm-1",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-                  className: "form-check-input",
-                  type: "radio",
-                  name: "gridRadios",
-                  id: "gridRadios4",
-                  value: "option4"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-                  className: "form-check-Label",
-                  htmlFor: "gridRadios4",
-                  children: "\u904B\u7528\u7D42\u4E86"
+                  children: "Other"
                 })]
               })]
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-            className: "form-group py-2",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
-              className: "btn-sm btn-primary searchBtn",
-              type: "submit",
-              value: "Submit",
-              children: "\u691C\u7D22"
             })
           })]
         })
@@ -4012,10 +4009,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function Index() {
   var Top = function Top() {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", {
-        children: "test"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_js_Pages_Main__WEBPACK_IMPORTED_MODULE_7__.default, {})]
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_js_Pages_Main__WEBPACK_IMPORTED_MODULE_7__.default, {})
     });
   };
 
@@ -8632,7 +8627,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n    color: #566787;\n    background: #f5f5f5;\n    font-family: 'Varela Round', sans-serif;\n    font-size: 13px;\n}\n/* .form-check{\n    margin-left: 2rem;\n} */\n/* .table-responsive {\n    margin: 30px 0;\n} */\n.table-wrapper {\n    min-width: 1000px;\n    background: #fff;\n    padding: 20px 25px;\n    border-radius: 3px;\n    box-shadow: 0 1px 1px rgba(0,0,0,.05);\n}\n.table-title {\n    padding-bottom: 15px;\n    background: #299be4;\n    color: #fff;\n    padding: 16px 30px;\n    margin: -20px -25px 10px;\n    border-radius: 3px 3px 0 0;\n}\n.table-title h2 {\n    margin: 5px 0 0;\n    font-size: 24px;\n}\n.table-title .btn {\n    color: #566787;\n    float: right;\n    font-size: 13px;\n    background: #fff;\n    border: none;\n    min-width: 50px;\n    border-radius: 2px;\n    border: none;\n    outline: none !important;\n    margin-left: 10px;\n}\n.table-title .btn:hover, .table-title .btn:focus {\n    color: #566787;\n    background: #f2f2f2;\n}\n.table-title .btn i {\n    float: left;\n    font-size: 21px;\n    margin-right: 5px;\n}\n.table-title .btn span {\n    float: left;\n    margin-top: 2px;\n}\ntable.table tr th, table.table tr td {\n    border-color: #e9e9e9;\n    padding: 12px 15px;\n    vertical-align: middle;\n}\ntable.table tr th:first-child {\n    width: 60px;\n}\ntable.table tr th:last-child {\n    width: 100px;\n}\ntable.table-striped tbody tr:nth-of-type(odd) {\n    background-color: #fcfcfc;\n}\ntable.table-striped.table-hover tbody tr:hover {\n    background: #f5f5f5;\n}\ntable.table th i {\n    font-size: 13px;\n    margin: 0 5px;\n    cursor: pointer;\n}\t\ntable.table td:last-child i {\n    opacity: 0.9;\n    font-size: 22px;\n    margin: 0 5px;\n}\ntable.table td a, button {\n    font-weight: bold;\n    color: #566787;\n    display: inline-block;\n    text-decoration: none;\n}\ntable.table td a:hover, button:hover {\n    color: #2196F3;\n}\ntable.table td a.settings, button.settings{\n    color: #2196F3;\n}\ntable.table td a.delete, button.delete{\n    color: #F44336;\n}\ntable.table td i {\n    font-size: 19px;\n}\ntable.table .avatar {\n    border-radius: 50%;\n    vertical-align: middle;\n    margin-right: 10px;\n}\n.status {\n    font-size: 30px;\n    margin: 2px 2px 0 0;\n    display: inline-block;\n    vertical-align: middle;\n    line-height: 10px;\n}\n.text-success {\n    color: #10c469;\n}\n.text-info {\n    color: #62c9e8;\n}\n.text-warning {\n    color: #FFC107;\n}\n.text-danger {\n    color: #ff5b5b;\n}\n.pagination {\n    float: right;\n    margin: 0 0 5px;\n}\n.pagination li a {\n    border: none;\n    font-size: 13px;\n    min-width: 30px;\n    min-height: 30px;\n    color: #999;\n    margin: 0 2px;\n    line-height: 30px;\n    border-radius: 2px !important;\n    text-align: center;\n    padding: 0 6px;\n}\n.pagination li a:hover {\n    color: #666;\n}\t\n.pagination li.active a, .pagination li.active a.page-link {\n    background: #03A9F4;\n}\n.pagination li.active a:hover {        \n    background: #0397d6;\n}\n.pagination li.disabled i {\n    color: #ccc;\n}\n.pagination li i {\n    font-size: 16px;\n    padding-top: 6px\n}\n.hint-text {\n    float: left;\n    margin-top: 10px;\n    font-size: 13px;\n}\n\n.searchBtn {\n    float: right;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n    color: #566787;\n    background: #f5f5f5;\n    font-family: 'Varela Round', sans-serif;\n    font-size: 13px;\n    min-height: auto;\n}\n/* .form-check{\n    margin-left: 2rem;\n} */\n/* .table-responsive {\n    margin: 30px 0;\n} */\n.table-wrapper {\n    min-width: 1000px;\n    min-height: auto;\n    background: #fff;\n    padding: 20px 25px;\n    border-radius: 3px;\n    box-shadow: 0 1px 1px rgba(0,0,0,.05);\n}\n.table-title {\n    padding-bottom: 15px;\n    background: #299be4;\n    color: #fff;\n    padding: 16px 30px;\n    margin: -20px -25px 10px;\n    border-radius: 3px 3px 0 0;\n}\n.table-title h2 {\n    margin: 5px 0 0;\n    font-size: 24px;\n}\n.table-title .btn {\n    color: #566787;\n    float: right;\n    font-size: 13px;\n    background: #fff;\n    border: none;\n    min-width: 50px;\n    border-radius: 2px;\n    border: none;\n    outline: none !important;\n    margin-left: 10px;\n}\n.table-title .btn:hover, .table-title .btn:focus {\n    color: #566787;\n    background: #f2f2f2;\n}\n.table-title .btn i {\n    float: left;\n    font-size: 21px;\n    margin-right: 5px;\n}\n.table-title .btn span {\n    float: left;\n    margin-top: 2px;\n}\ntable.table tr th, table.table tr td {\n    border-color: #e9e9e9;\n    padding: 12px 15px;\n    vertical-align: middle;\n}\ntable.table tr th:first-child {\n    width: 60px;\n}\ntable.table tr th:last-child {\n    width: 100px;\n}\ntable.table-striped tbody tr:nth-of-type(odd) {\n    background-color: #fcfcfc;\n}\ntable.table-striped.table-hover tbody tr:hover {\n    background: #f5f5f5;\n}\ntable.table th i {\n    font-size: 13px;\n    margin: 0 5px;\n    cursor: pointer;\n}\t\ntable.table td:last-child i {\n    opacity: 0.9;\n    font-size: 22px;\n    margin: 0 5px;\n}\ntable.table td a, button {\n    font-weight: bold;\n    color: #566787;\n    display: inline-block;\n    text-decoration: none;\n}\ntable.table td a:hover, button:hover {\n    color: #2196F3;\n}\ntable.table td a.settings, button.settings{\n    color: #2196F3;\n}\ntable.table td a.delete, button.delete{\n    color: #F44336;\n}\ntable.table td i {\n    font-size: 19px;\n}\ntable.table .avatar {\n    border-radius: 50%;\n    vertical-align: middle;\n    margin-right: 10px;\n}\n.status {\n    font-size: 30px;\n    margin: 2px 2px 0 0;\n    display: inline-block;\n    vertical-align: middle;\n    line-height: 10px;\n}\n.text-success {\n    color: #10c469;\n}\n.text-info {\n    color: #62c9e8;\n}\n.text-warning {\n    color: #FFC107;\n}\n.text-danger {\n    color: #ff5b5b;\n}\n.pagination {\n    float: right;\n    margin: 0 0 5px;\n}\n.pagination li a {\n    border: none;\n    font-size: 13px;\n    min-width: 30px;\n    min-height: 30px;\n    color: #999;\n    margin: 0 2px;\n    line-height: 30px;\n    border-radius: 2px !important;\n    text-align: center;\n    padding: 0 6px;\n}\n.pagination li a:hover {\n    color: #666;\n}\t\n.pagination li.active a, .pagination li.active a.page-link {\n    background: #03A9F4;\n}\n.pagination li.active a:hover {        \n    background: #0397d6;\n}\n.pagination li.disabled i {\n    color: #ccc;\n}\n.pagination li i {\n    font-size: 16px;\n    padding-top: 6px\n}\n.hint-text {\n    float: left;\n    margin-top: 10px;\n    font-size: 13px;\n}\n\n.searchBtn {\n    float: right;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

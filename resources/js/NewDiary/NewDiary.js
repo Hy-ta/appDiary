@@ -10,6 +10,10 @@ class NewDiary extends Component {
         this.state = {
             title: '',
             description: '',
+            startDate: '',
+            endDate: '',
+            stDate:'',
+            edDate:'',
             errors: [],
         };
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -29,7 +33,9 @@ class NewDiary extends Component {
 
         const data = {
             title: this.state.title,
-            description: this.state.description
+            description: this.state.description,
+            startDate: this.state.startDate,
+            endDate: this.state.endDate
         }
 
         axios.post(`api/diary/create`, data)
@@ -38,6 +44,9 @@ class NewDiary extends Component {
                     this.props.history.push('/search')
                 }).catch(err => {
                     console.log('error request failed..', err)
+                    this.setState({
+                        errors: err.response.data.errors
+                    })
                 })
     }
 
@@ -55,6 +64,16 @@ class NewDiary extends Component {
         }
     }
 
+    // dateValidateHandler(){
+    //     var stDate = this.state.startDate;
+    //     var edDate = this.state.endDate;
+    //     var regExp = /(\d{1,2})\/(\d{1,2})\/(\d{2,4})/;
+    //     if(parseInt(edDate.replace(regExp, "$3$2$1")) > parseInt(stDate.replace(regExp, "$3$2$1"))){
+    //         alert("greater!")
+    //     }       
+    // }
+
+
     render(){
         console.log(this.state)
         return(
@@ -69,7 +88,7 @@ class NewDiary extends Component {
 
                                     <form onSubmit={this.onSubmitHandler}>
                                         <div className='form-group'>
-                                            <label htmlFor='name'>Title: </label>
+                                            <label>Title: </label>
                                             {/* error message */}
                                             
                                             { this.state.errors &&
@@ -80,9 +99,9 @@ class NewDiary extends Component {
 
                                             {/* //////////// */}
                                             <input
-                                                id='name'
+                                                id='title'
                                                 type='text'
-                                                className={`form-control ${this.hasErrorFor('name') ? 'is-invalid' : ''}`}
+                                                className={`form-control ${this.hasErrorFor('title') ? 'is-invalid' : ''}`}
                                                 name='title'
                                                 value={this.state.title}
                                                 onChange={this.onChangeHandler}
@@ -101,11 +120,41 @@ class NewDiary extends Component {
                                             />
                                             {this.renderErrorFor('description')}
                                         </div>
-                                        <button 
-                                            className='btn btn-primary'
-                                            type='submit'
-                                        >
-                                            Create</button>
+
+                                        {/* startDate */}
+                                        <div className='form-group1'>
+                                            <label htmlFor='startDate'>Start Date</label>
+                                            <input
+                                                id='startDate'
+                                                type='date'
+                                                className={`form-control ${this.hasErrorFor('startDate') ? 'is-invalid' : ''}`}
+                                                name='startDate'
+                                                value={this.state.startDate}
+                                                onChange={this.onChangeHandler}
+                                            />
+                                            {this.renderErrorFor('startDate')}
+                                        </div>
+
+                                        {/* endDate */}
+                                        <div className='form-group2'>
+                                            <label htmlFor='endDate'>End Date</label>
+                                            <input
+                                                id='endDate'
+                                                type='date'
+                                                className={`form-control ${this.hasErrorFor('endDate') ? 'is-invalid' : ''}`}
+                                                name='endDate'
+                                                value={this.state.endDate}
+                                                onChange={this.onChangeHandler}
+                                            />
+                                            {this.renderErrorFor('endDate')}
+                                        </div>
+                                        <div className="py-3 text-right">
+                                            <button 
+                                                className='btn btn-primary py-2'
+                                                type='submit'
+                                            >
+                                                Create</button>
+                                        </div>
                                     </form>
                                     
                                 </div>
