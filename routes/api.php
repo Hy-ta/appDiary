@@ -23,6 +23,7 @@ Route::group([
     'prefix' => 'user',
     'namespace' => 'User',
 ], function($router) {
+    Route::get('index', [UserController::class, 'index']);
     Route::post('create', [UserController::class, 'create']);
     Route::post('login', [UserController::class, 'login']);
 });
