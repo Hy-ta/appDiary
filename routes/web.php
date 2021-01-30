@@ -20,4 +20,6 @@ use Illuminate\Support\Facades\Route;
 //     return view('app');
 // })->where('any', '.*');
 
-Route::view('/{path?}', 'app');
+// Route::view('/{path?}', 'app');
+
+Route::get('/{any}', "UserController@index")->where('any','.*');

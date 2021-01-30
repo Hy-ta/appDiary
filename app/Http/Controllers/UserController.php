@@ -132,9 +132,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::get();
-
-        return $users->toJson();
+        return view('app');
         return response()->json(['status' => 'success'], 200);
     }
 
