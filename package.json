@@ -1,14 +1,14 @@
 {
     "private": true,
     "scripts": {
-        "heroku-postbuild": "cd public && npm install && npm install --only=dev --no-shrinkwrap && npm run",
         "dev": "npm run development",
         "development": "mix",
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "start": "node src/index.js"
     },
     "devDependencies": {
         "@babel/preset-react": "^7.0.0",

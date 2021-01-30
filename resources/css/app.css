@@ -1,4 +1,10 @@
-.body{
+#app{
+    font-family: 'Nunito';
+    background-color: aqua;
+}
+
+.test {
+    color: blue;
     font-family: 'Nunito';
     background-color: aqua;
 }
