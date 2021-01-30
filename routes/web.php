@@ -24,14 +24,14 @@ use App\Http\Controllers\UserController;
 
 // Route::view('/{path?}', 'app');
 
-// Route::get('/{any}', "UserController@index")->where('any','.*');
+Route::get('/{any}', [UserController::class, 'index'])->where('any','.*');
 
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'user',
-    'namespace' => 'User',
-], function($router) {
-    Route::get('/{any}', [UserController::class, 'index'])->where('any','.*');;
-    Route::post('create', [UserController::class, 'create']);
-    Route::post('login', [UserController::class, 'login']);
-});
+// Route::group([
+//     'middleware' => 'api',
+//     'prefix' => 'user',
+//     'namespace' => 'User',
+// ], function($router) {
+//     Route::get('index', [UserController::class, 'index']);
+//     Route::post('create', [UserController::class, 'create']);
+//     Route::post('login', [UserController::class, 'login']);
+// });
