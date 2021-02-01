@@ -8,33 +8,32 @@ import axios from 'axios';
 
 
 const Search = () => {
+    // console.log(localStorage)
+
     const [searchValue, setSearchValue] = useState('');
     const [searchStDateValue, setSearchStDateValue] = useState('');
     const [searchEdDateValue, setSearchEdDateValue] = useState('');
 
     const [searchArray, setSearchArray] = useState([]);
     const [errMessage, setErrMessage] = useState('');
+    const email = localStorage.getItem('email');
 
     const [check, setChecked] = useState(false);
     const [isLoading, setIsLoading] = useState(true)
     const storage = localStorage.getItem('userData');
-
-    // console.log(localStorage)
-    // console.log("sssssss",userData)
 
     const isLoggedIn = window.localStorage.getItem('isLoggedIn') == true && check === false;
     
     const userInfo = () => {
             if(isLoggedIn){
                 setUserData(storage)
-                console.log(userData)
                 setChecked(true);
             } 
     };
 
-    const getSearchHandler = async (searchValue, searchStDateValue, searchEdDateValue) => {
+    const getSearchHandler = async (searchValue, searchStDateValue, searchEdDateValue, email) => {
         try{
-            axios.get(`api/diary/search?title=${searchValue ? searchValue : ''}&startDate=${searchStDateValue ? searchStDateValue: ''}&endDate=${searchEdDateValue ? searchEdDateValue: ''}`)
+            axios.get(`api/diary/search?title=${searchValue ? searchValue : ''}&startDate=${searchStDateValue ? searchStDateValue: ''}&endDate=${searchEdDateValue ? searchEdDateValue: ''}&email=${email ? email: ''}`)
                     .then(res => {
                         if(res){
                             setSearchArray(res.data);
@@ -53,17 +52,16 @@ const Search = () => {
     },[])
 
     useEffect(() => {
-        getSearchHandler(searchValue, searchStDateValue, searchEdDateValue)
-    }, [searchValue, searchStDateValue, searchEdDateValue]);
+        getSearchHandler(searchValue, searchStDateValue, searchEdDateValue, email)
+    }, [searchValue, searchStDateValue, searchEdDateValue, email]);
+
 
     const DataArray = () => {
-        sessionStorage.user = JSON.stringify({ name: "name" });
-        // console.log(sessionStorage)
+        sessionStorage.email = JSON.stringify({ name: "name" });
         // sometime later
         let user = JSON.parse( sessionStorage.user );
         // alert( user.name ); // John
     }
-
 
     return(
         <div className="table-responsive">

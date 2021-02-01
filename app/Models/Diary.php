@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Diary extends Model
 {
     use HasFactory;
@@ -14,6 +15,8 @@ class Diary extends Model
         'description',
         'startDate',
         'endDate',
+        'email',
         'void_flg'
     ];
+    
 }

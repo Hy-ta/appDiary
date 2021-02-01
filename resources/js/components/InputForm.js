@@ -28,7 +28,6 @@ class InputForm extends Component {
     };
 
     render(){
-      console.log('props', this.props)
         return(
             <div className="px-4">
                         <Form>
@@ -49,35 +48,35 @@ class InputForm extends Component {
                             <span>{this.props.err}</span>
 
                               <div className="pb-2 col-sm-1">
-                                <Label>Start Date:</Label>
+                                {/* <Label>Start Date:</Label> */}
                               </div>
                                 <div className="col-sm-2 mx-4">
-                                        <Input 
+                                        {/* <Input 
                                           type="date" 
                                           id="start" 
                                           name="startDate"    
                                           value={this.props.valueSt} 
                                           onChange={(e) => this.props.setSearchStDateValue(e.target.value)}
                                           className="form-control"
-                                         />
+                                         /> */}
                                 </div>
                                 
                                 <div className="pb-2 col-sm-1">
-                                  <Label>End Date:</Label>
+                                  {/* <Label>End Date:</Label> */}
                                 </div>
                                 <div className="col-sm-2">
-                                        <Input 
+                                        {/* <Input 
                                             type="date" 
                                             id="start" 
                                             name="endDate" 
                                             value={this.props.valueEd} 
                                             onChange={(e) => this.props.setSearchEdDateValue(e.target.value)}
-                                            />   
+                                            />    */}
                                 </div>
                             </FormGroup>
                             {/* //1 */}
                 
-                            <FormGroup className="py-3" >
+                            {/* <FormGroup className="py-3" >
                                 <div className="row py-2">
                                       <div className="col-sm-2">
                                         <Label htmlFor="exampleFormControlInput1">Process:</Label>
@@ -117,13 +116,13 @@ class InputForm extends Component {
                                           <Label className="form-check-Label" htmlFor="gridRadios4">
                                           Other
                                           </Label>
-                                      </div>
+                                      </div> */}
 
                                 {/* <!---------------
                                       status  
                                     ---------------> */}
-                                    </div>     
-                                  </FormGroup>
+                                    {/* </div>     
+                                  </FormGroup> */}
                         </Form>
                     </div>
         )

@@ -37,6 +37,7 @@ class SignUp extends Component {
 
         if(response.data.status === 200){
           localStorage.setItem("isLoggedIn", true);
+          localStorage.setItem("email", this.state.email);
           this.setState({
             msg: response.data.message,
             redirect: true,

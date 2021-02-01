@@ -38,7 +38,8 @@ class Login extends Component {
         this.setState({ isLoading: false });
         if (response.data.status === 200) {
             localStorage.setItem("isLoggedIn", true);
-            localStorage.setItem("userData", JSON.stringify(response.data.data));
+            localStorage.setItem("userData", JSON.stringify(response.data));
+            localStorage.setItem("email", this.state.email);
           this.setState({
             msg: response.data.message,
             redirect: true,

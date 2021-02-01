@@ -14,6 +14,7 @@ class NewDiary extends Component {
             endDate: '',
             stDate:'',
             edDate:'',
+            email:'',
             errors: [],
         };
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -35,9 +36,11 @@ class NewDiary extends Component {
             title: this.state.title,
             description: this.state.description,
             startDate: this.state.startDate,
-            endDate: this.state.endDate
+            endDate: this.state.endDate,
+            email: localStorage.email
         }
 
+        const email =  localStorage.getItem('email');
         axios.post(`api/diary/create`, data)
                 .then(res => {
                     console.log('request successed!', res)

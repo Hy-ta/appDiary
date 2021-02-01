@@ -2049,7 +2049,8 @@ var Login = /*#__PURE__*/function (_Component) {
 
         if (response.data.status === 200) {
           localStorage.setItem("isLoggedIn", true);
-          localStorage.setItem("userData", JSON.stringify(response.data.data));
+          localStorage.setItem("userData", JSON.stringify(response.data));
+          localStorage.setItem("email", _this2.state.email);
 
           _this2.setState({
             msg: response.data.message,
@@ -2393,6 +2394,7 @@ var SignUp = /*#__PURE__*/function (_Component) {
 
         if (response.data.status === 200) {
           localStorage.setItem("isLoggedIn", true);
+          localStorage.setItem("email", _this2.state.email);
 
           _this2.setState({
             msg: response.data.message,
@@ -2756,6 +2758,7 @@ var ListDiary = function ListDiary() {
       isLoading = _useState4[0],
       setIsLoading = _useState4[1];
 
+  var email = localStorage.getItem('email');
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
     var fetchAll = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee() {
@@ -2765,7 +2768,7 @@ var ListDiary = function ListDiary() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_4___default().get('api/diary/index').then(function (res) {
+                return axios__WEBPACK_IMPORTED_MODULE_4___default().get("api/diary/index?email=".concat(email ? email : '')).then(function (res) {
                   if (res) {
                     console.log('data was returned !', res);
                     setState(res.data);
@@ -2776,18 +2779,19 @@ var ListDiary = function ListDiary() {
                 });
 
               case 3:
-                _context.next = 8;
+                _context.next = 9;
                 break;
 
               case 5:
                 _context.prev = 5;
                 _context.t0 = _context["catch"](0);
                 console.log('error occurred', _context.t0);
-
-              case 8:
-                ;
+                setIsLoading(false);
 
               case 9:
+                ;
+
+              case 10:
               case "end":
                 return _context.stop();
             }
@@ -3029,6 +3033,7 @@ var NewDiary = /*#__PURE__*/function (_Component) {
       endDate: '',
       stDate: '',
       edDate: '',
+      email: '',
       errors: []
     };
     _this.onChangeHandler = _this.onChangeHandler.bind(_assertThisInitialized(_this));
@@ -3053,8 +3058,10 @@ var NewDiary = /*#__PURE__*/function (_Component) {
         title: this.state.title,
         description: this.state.description,
         startDate: this.state.startDate,
-        endDate: this.state.endDate
+        endDate: this.state.endDate,
+        email: localStorage.email
       };
+      var email = localStorage.getItem('email');
       axios__WEBPACK_IMPORTED_MODULE_1___default().post("api/diary/create", data).then(function (res) {
         console.log('request successed!', res);
 
@@ -3291,6 +3298,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Search = function Search() {
+  // console.log(localStorage)
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
       searchValue = _useState2[0],
@@ -3316,6 +3324,8 @@ var Search = function Search() {
       errMessage = _useState10[0],
       setErrMessage = _useState10[1];
 
+  var email = localStorage.getItem('email');
+
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
       check = _useState12[0],
@@ -3326,27 +3336,24 @@ var Search = function Search() {
       isLoading = _useState14[0],
       setIsLoading = _useState14[1];
 
-  var storage = localStorage.getItem('userData'); // console.log(localStorage)
-  // console.log("sssssss",userData)
-
+  var storage = localStorage.getItem('userData');
   var isLoggedIn = window.localStorage.getItem('isLoggedIn') == true && check === false;
 
   var userInfo = function userInfo() {
     if (isLoggedIn) {
       setUserData(storage);
-      console.log(userData);
       setChecked(true);
     }
   };
 
   var getSearchHandler = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(searchValue, searchStDateValue, searchEdDateValue) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(searchValue, searchStDateValue, searchEdDateValue, email) {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               try {
-                axios__WEBPACK_IMPORTED_MODULE_8___default().get("api/diary/search?title=".concat(searchValue ? searchValue : '', "&startDate=").concat(searchStDateValue ? searchStDateValue : '', "&endDate=").concat(searchEdDateValue ? searchEdDateValue : '')).then(function (res) {
+                axios__WEBPACK_IMPORTED_MODULE_8___default().get("api/diary/search?title=".concat(searchValue ? searchValue : '', "&startDate=").concat(searchStDateValue ? searchStDateValue : '', "&endDate=").concat(searchEdDateValue ? searchEdDateValue : '', "&email=").concat(email ? email : '')).then(function (res) {
                   if (res) {
                     setSearchArray(res.data);
                     setIsLoading(false);
@@ -3365,7 +3372,7 @@ var Search = function Search() {
       }, _callee);
     }));
 
-    return function getSearchHandler(_x, _x2, _x3) {
+    return function getSearchHandler(_x, _x2, _x3, _x4) {
       return _ref.apply(this, arguments);
     };
   }();
@@ -3374,14 +3381,13 @@ var Search = function Search() {
     userInfo(), DataArray();
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    getSearchHandler(searchValue, searchStDateValue, searchEdDateValue);
-  }, [searchValue, searchStDateValue, searchEdDateValue]);
+    getSearchHandler(searchValue, searchStDateValue, searchEdDateValue, email);
+  }, [searchValue, searchStDateValue, searchEdDateValue, email]);
 
   var DataArray = function DataArray() {
-    sessionStorage.user = JSON.stringify({
+    sessionStorage.email = JSON.stringify({
       name: "name"
-    }); // console.log(sessionStorage)
-    // sometime later
+    }); // sometime later
 
     var user = JSON.parse(sessionStorage.user); // alert( user.name ); // John
   };
@@ -3633,11 +3639,10 @@ var InputForm = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      console.log('props', this.props);
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
         className: "px-4",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_2__.default, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.default, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_2__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.default, {
             className: "row py-4",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
               className: "pb-2 col-sm-1",
@@ -3658,105 +3663,15 @@ var InputForm = /*#__PURE__*/function (_Component) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
               children: this.props.err
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-              className: "pb-2 col-sm-1",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-                children: "Start Date:"
-              })
+              className: "pb-2 col-sm-1"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-              className: "col-sm-2 mx-4",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-                type: "date",
-                id: "start",
-                name: "startDate",
-                value: this.props.valueSt,
-                onChange: function onChange(e) {
-                  return _this2.props.setSearchStDateValue(e.target.value);
-                },
-                className: "form-control"
-              })
+              className: "col-sm-2 mx-4"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-              className: "pb-2 col-sm-1",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-                children: "End Date:"
-              })
+              className: "pb-2 col-sm-1"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-              className: "col-sm-2",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-                type: "date",
-                id: "start",
-                name: "endDate",
-                value: this.props.valueEd,
-                onChange: function onChange(e) {
-                  return _this2.props.setSearchEdDateValue(e.target.value);
-                }
-              })
+              className: "col-sm-2"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.default, {
-            className: "py-3",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-              className: "row py-2",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                className: "col-sm-2",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-                  htmlFor: "exampleFormControlInput1",
-                  children: "Process:"
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "form-check col-sm-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-                  className: "form-check-input",
-                  type: "radio",
-                  name: "gridRadios",
-                  id: "gridRadios1",
-                  checked: this.state.span,
-                  onChange: this.handleNameChange
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-                  className: "form-check-Label",
-                  htmlFor: "gridRadios1",
-                  children: "Everyday"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "form-check col-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-                  className: "form-check-input",
-                  type: "radio",
-                  name: "gridRadios",
-                  id: "gridRadios2",
-                  value: "option2"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-                  className: "form-check-Label",
-                  htmlFor: "gridRadios2",
-                  children: "Every Month"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "form-check col-sm-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-                  className: "form-check-input",
-                  type: "radio",
-                  name: "gridRadios",
-                  id: "gridRadios3",
-                  value: "option3"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-                  className: "form-check-Label",
-                  htmlFor: "gridRadios3",
-                  children: "fourth quarter"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "form-check col-sm-2",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-                  className: "form-check-input",
-                  type: "radio",
-                  name: "gridRadios",
-                  id: "gridRadios4",
-                  value: "option4"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-                  className: "form-check-Label",
-                  htmlFor: "gridRadios4",
-                  children: "Other"
-                })]
-              })]
-            })
-          })]
+          })
         })
       });
     }

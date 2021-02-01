@@ -9,11 +9,12 @@ const ListDiary = () => {
 
     const [state, setState] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const email = localStorage.getItem('email');
      
     useEffect(() => {
         const fetchAll = async () => {
             try{
-               await axios.get('api/diary/index')
+               await axios.get(`api/diary/index?email=${email ? email: ''}`)
                         .then(res => {
                             if(res) {
                                 console.log('data was returned !', res)
@@ -24,6 +25,8 @@ const ListDiary = () => {
                 }   
                 catch(err){
                     console.log('error occurred', err)
+                    setIsLoading(false)
+
                 };
             }
             fetchAll()

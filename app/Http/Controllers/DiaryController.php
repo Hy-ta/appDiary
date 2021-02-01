@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use App\Models\Diary;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -15,6 +16,7 @@ class DiaryController extends Controller
     {
         $title = $request->title;
         $description = $request->description;
+        $email = $request->email;
 
         $validatedData = $request->validate([
             'title' => 'required',
@@ -28,14 +30,17 @@ class DiaryController extends Controller
             'description' => $validatedData['description'],
             'startDate' => $validatedData['startDate'],
             'endDate' => $validatedData['endDate'],
+            'email' => $email,
             'void_flg' => false
         ]);
             return $diary->toJson();
     }
 
-    public function Index()
+    public function Index(Request $request)
     {
-        $diaries = Diary::where('void_flg', false)
+        $user_email = $request->email;
+
+        $diaries = Diary::where('void_flg', false)->where('email', '=', $user_email)
                                 ->orderBy('created_at', 'desc')
                                 ->get();
         return $diaries->toJson();
@@ -46,8 +51,10 @@ class DiaryController extends Controller
         $title = $request->title;
         $stDate = $request->startDate;
         $edDate = $request->endDate;
+        $user_email = $request->email;
 
-        $searchData = Diary::where('title', 'like', '%' . $title . '%')
+
+        $searchData = Diary::where('void_flg', false)->where('title', 'like', '%' . $title . '%')->where('email', '=', $user_email)
                             ->orderBy('created_at', 'DESC')->limit(5)->get();
         return $searchData->toJson();
     }

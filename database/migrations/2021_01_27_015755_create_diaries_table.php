@@ -18,7 +18,7 @@ class CreateDiariesTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->date('startDate')->nullable();
-            $table->date('endDate')->nullable();;
+            $table->date('endDate')->nullable();
             $table->boolean('void_flg');
             $table->timestamps();
         });
