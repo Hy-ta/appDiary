@@ -33,7 +33,7 @@ const Search = () => {
 
     const getSearchHandler = async (searchValue, searchStDateValue, searchEdDateValue) => {
         try{
-            axios.get(`api/diary/search?title=${searchValue ? searchValue : ''}&startDate=${searchStDateValue ? searchStDateValue: ''}&endDate=${searchEdDateValue ? searchEdDateValue: ''}&email=${email ? email: ''}`)
+            axios.get(`api/diary/search?title=${searchValue ? searchValue : ''}&startDate=${searchStDateValue ? searchStDateValue: ''}&endDate=${searchEdDateValue ? searchEdDateValue: ''}`)
                     .then(res => {
                         if(res){
                             setSearchArray(res.data);

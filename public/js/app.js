@@ -3353,7 +3353,7 @@ var Search = function Search() {
           switch (_context.prev = _context.next) {
             case 0:
               try {
-                axios__WEBPACK_IMPORTED_MODULE_8___default().get("api/diary/search?title=".concat(searchValue ? searchValue : '', "&startDate=").concat(searchStDateValue ? searchStDateValue : '', "&endDate=").concat(searchEdDateValue ? searchEdDateValue : '', "&email=").concat(email ? email : '')).then(function (res) {
+                axios__WEBPACK_IMPORTED_MODULE_8___default().get("api/diary/search?title=".concat(searchValue ? searchValue : '', "&startDate=").concat(searchStDateValue ? searchStDateValue : '', "&endDate=").concat(searchEdDateValue ? searchEdDateValue : '')).then(function (res) {
                   if (res) {
                     setSearchArray(res.data);
                     setIsLoading(false);
