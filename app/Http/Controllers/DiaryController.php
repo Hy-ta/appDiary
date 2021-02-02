@@ -53,10 +53,11 @@ class DiaryController extends Controller
         $edDate = $request->endDate;
         $user_email = $request->email;
 
-
-        $searchData = Diary::where('void_flg', false)->where('title', 'like', '%' . $title . '%')->where('email', '=', $user_email)
-                            ->orderBy('created_at', 'DESC')->limit(5)->get();
-        return $searchData->toJson();
+        if(!is_null($user_email)){
+            $searchData = Diary::where('void_flg', false)->where('title', 'like', '%' . $title . '%')->where('email', '=', $user_email)
+                                ->orderBy('created_at', 'DESC')->limit(5)->get();
+            return $searchData->toJson();
+        }
     }
 
     public function delete(Request $request)
