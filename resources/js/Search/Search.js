@@ -47,21 +47,13 @@ const Search = () => {
     }
 
     useEffect(() => {
-            userInfo(),
-            DataArray()
+            userInfo()
     },[])
 
     useEffect(() => {
         getSearchHandler(searchValue, searchStDateValue, searchEdDateValue, email)
     }, [searchValue, searchStDateValue, searchEdDateValue, email]);
 
-
-    const DataArray = () => {
-        sessionStorage.email = JSON.stringify({ name: "name" });
-        // sometime later
-        let user = JSON.parse( sessionStorage.user );
-        // alert( user.name ); // John
-    }
 
     return(
         <div className="table-responsive">

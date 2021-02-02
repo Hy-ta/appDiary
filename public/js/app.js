@@ -3378,20 +3378,11 @@ var Search = function Search() {
   }();
 
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    userInfo(), DataArray();
+    userInfo();
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
     getSearchHandler(searchValue, searchStDateValue, searchEdDateValue, email);
   }, [searchValue, searchStDateValue, searchEdDateValue, email]);
-
-  var DataArray = function DataArray() {
-    sessionStorage.email = JSON.stringify({
-      name: "name"
-    }); // sometime later
-
-    var user = JSON.parse(sessionStorage.user); // alert( user.name ); // John
-  };
-
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
     className: "table-responsive",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
