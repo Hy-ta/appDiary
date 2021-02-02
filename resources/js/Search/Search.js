@@ -16,7 +16,7 @@ const Search = () => {
 
     const [searchArray, setSearchArray] = useState([]);
     const [errMessage, setErrMessage] = useState('');
-    // const email = localStorage.getItem('email');
+    const email = localStorage.getItem('email');
 
     const [check, setChecked] = useState(false);
     const [isLoading, setIsLoading] = useState(true)
@@ -31,9 +31,9 @@ const Search = () => {
             } 
     };
 
-    const getSearchHandler = async (searchValue, searchStDateValue, searchEdDateValue) => {
+    const getSearchHandler = async (searchValue, searchStDateValue, searchEdDateValue, email) => {
         try{
-            axios.get(`api/diary/search?title=${searchValue ? searchValue : ''}&startDate=${searchStDateValue ? searchStDateValue: ''}&endDate=${searchEdDateValue ? searchEdDateValue: ''}`)
+            axios.get(`api/diary/search?title=${searchValue ? searchValue : ''}&startDate=${searchStDateValue ? searchStDateValue: ''}&endDate=${searchEdDateValue ? searchEdDateValue: ''}&email=${email ? email: ''}`)
                     .then(res => {
                         if(res){
                             setSearchArray(res.data);
@@ -47,21 +47,21 @@ const Search = () => {
     }
 
     useEffect(() => {
-            userInfo()
-            // DataArray()
+            userInfo(),
+            DataArray()
     },[])
 
     useEffect(() => {
-        getSearchHandler(searchValue, searchStDateValue, searchEdDateValue)
-    }, [searchValue, searchStDateValue, searchEdDateValue]);
+        getSearchHandler(searchValue, searchStDateValue, searchEdDateValue, email)
+    }, [searchValue, searchStDateValue, searchEdDateValue, email]);
 
 
-    // const DataArray = () => {
-    //     sessionStorage.email = JSON.stringify({ name: "name" });
-    //     // sometime later
-    //     let user = JSON.parse( sessionStorage.user );
-    //     // alert( user.name ); // John
-    // }
+    const DataArray = () => {
+        sessionStorage.email = JSON.stringify({ name: "name" });
+        // sometime later
+        let user = JSON.parse( sessionStorage.user );
+        // alert( user.name ); // John
+    }
 
     return(
         <div className="table-responsive">

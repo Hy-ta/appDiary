@@ -3322,8 +3322,9 @@ var Search = function Search() {
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
       _useState10 = _slicedToArray(_useState9, 2),
       errMessage = _useState10[0],
-      setErrMessage = _useState10[1]; // const email = localStorage.getItem('email');
+      setErrMessage = _useState10[1];
 
+  var email = localStorage.getItem('email');
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
@@ -3346,13 +3347,13 @@ var Search = function Search() {
   };
 
   var getSearchHandler = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(searchValue, searchStDateValue, searchEdDateValue) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(searchValue, searchStDateValue, searchEdDateValue, email) {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               try {
-                axios__WEBPACK_IMPORTED_MODULE_8___default().get("api/diary/search?title=".concat(searchValue ? searchValue : '', "&startDate=").concat(searchStDateValue ? searchStDateValue : '', "&endDate=").concat(searchEdDateValue ? searchEdDateValue : '')).then(function (res) {
+                axios__WEBPACK_IMPORTED_MODULE_8___default().get("api/diary/search?title=".concat(searchValue ? searchValue : '', "&startDate=").concat(searchStDateValue ? searchStDateValue : '', "&endDate=").concat(searchEdDateValue ? searchEdDateValue : '', "&email=").concat(email ? email : '')).then(function (res) {
                   if (res) {
                     setSearchArray(res.data);
                     setIsLoading(false);
@@ -3371,22 +3372,25 @@ var Search = function Search() {
       }, _callee);
     }));
 
-    return function getSearchHandler(_x, _x2, _x3) {
+    return function getSearchHandler(_x, _x2, _x3, _x4) {
       return _ref.apply(this, arguments);
     };
   }();
 
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    userInfo(); // DataArray()
+    userInfo(), DataArray();
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    getSearchHandler(searchValue, searchStDateValue, searchEdDateValue);
-  }, [searchValue, searchStDateValue, searchEdDateValue]); // const DataArray = () => {
-  //     sessionStorage.email = JSON.stringify({ name: "name" });
-  //     // sometime later
-  //     let user = JSON.parse( sessionStorage.user );
-  //     // alert( user.name ); // John
-  // }
+    getSearchHandler(searchValue, searchStDateValue, searchEdDateValue, email);
+  }, [searchValue, searchStDateValue, searchEdDateValue, email]);
+
+  var DataArray = function DataArray() {
+    sessionStorage.email = JSON.stringify({
+      name: "name"
+    }); // sometime later
+
+    var user = JSON.parse(sessionStorage.user); // alert( user.name ); // John
+  };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
     className: "table-responsive",
