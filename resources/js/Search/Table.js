@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Table = (props) => {
     console.log('data', props.state)
@@ -19,7 +20,14 @@ const Table = (props) => {
                                     props.state.filter(data => data.created_at !== null).map((data, key)=> {
                                         return(
                                                 <tr key={data.id}>
-                                                    <td><a href="#">{data.title}</a></td>
+                                                    <td>
+                                                        <Link 
+                                                            className='pt-3 mb-3' 
+                                                            to={`/${data.id}`}
+                                                        >
+                                                        {data.title}
+                                                        </Link>  
+                                                    </td>
                                                     <td>{data.description.slice(0,11)}</td>                        
                                                     <td>{data.created_at.slice(0,10)}</td>
                                                     <td>{data.startDate || null}</td>

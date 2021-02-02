@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DiaryController;
+
 
 
 /*
@@ -17,3 +19,4 @@ use App\Http\Controllers\UserController;
 // Route::view('/{path?}', 'app');
 
 Route::get('/{any}', [UserController::class, 'index'])->where('any','.*');
+// Route::post('/list_diary', [DiaryController::class, 'delete']);

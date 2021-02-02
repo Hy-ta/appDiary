@@ -15,6 +15,8 @@ import Search from '../js/Search/Search';
 import NewDiary from './NewDiary/NewDiary';
 import ListDiary from './ListDiary/ListDiary';
 import EditDiary from './ListDiary/EditDiary';
+import EditInfo from './ListDiary/EditInfo';
+
 
 function Index() {
     const Top = () => {

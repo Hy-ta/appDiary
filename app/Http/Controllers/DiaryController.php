@@ -63,11 +63,18 @@ class DiaryController extends Controller
     public function delete(Request $request)
     {
         $id = $request->id;
+        $diary = Diary::find($id);
 
-        $voidRequest = Diary::where('void_flg', false && 'title', '===', '%' . $id . '%')
-                                ->get();
-        $voidRequest->delete();
-        return response()->json(['status' => 'success'] ,200);
+        if(!is_null($diary)){
+            $diary->update(['void_flg' => true]);
+            return response()->json(['status' => 'success'] ,200);
+        } else {
+            return response()->json([
+                    'status' => 'failed',
+                    'success' => false,
+                    'message' => 'failed to delete'
+                    ]);
+        }
     }
 
     public function show($id)
@@ -78,6 +85,17 @@ class DiaryController extends Controller
             return response()->json($diary, 200);
             return response()->json(['status' => ' success', $diary], 200);
         }
+    }
+
+    public function update(Request $request)
+    {
+        $diary = array(
+            'title' => $request->title,
+            'description' => $request->description,
+            'startDate' => $request->startDate,
+            'endDate' => $request->endDate
+        );
+        
     }
 }
 

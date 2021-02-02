@@ -33,10 +33,10 @@ Route::group([
     'prefix' => 'diary',
     'namespace' => 'Diary',
 ], function($router) {
-    // Route::get('index', [UserController::class, 'index']);
     Route::get('index', [DiaryController::class, 'index']);
     Route::get('search', [DiaryController::class, 'search']);
     Route::get('{id}', [DiaryController::class, 'show']);
-    Route::post('create', [DiaryController::class, 'create']);
     Route::post('delete', [DiaryController::class, 'delete']);
+    Route::post('create', [DiaryController::class, 'create']);
+    Route::post('update', [DiaryController::class, 'update']);
 });
