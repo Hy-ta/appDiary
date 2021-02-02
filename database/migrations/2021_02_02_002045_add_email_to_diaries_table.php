@@ -14,7 +14,7 @@ class AddEmailToDiariesTable extends Migration
     public function up()
     {
         Schema::table('diaries', function (Blueprint $table) {
-            $table->string('email');
+            $table->string('email')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddEmailToDiariesTable extends Migration
     public function down()
     {
         Schema::table('diaries', function (Blueprint $table) {
-            //
+            // Schema::dropIfExists('diaries');
         });
     }
 }
