@@ -3322,9 +3322,8 @@ var Search = function Search() {
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
       _useState10 = _slicedToArray(_useState9, 2),
       errMessage = _useState10[0],
-      setErrMessage = _useState10[1];
+      setErrMessage = _useState10[1]; // const email = localStorage.getItem('email');
 
-  var email = localStorage.getItem('email');
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),

@@ -16,7 +16,7 @@ const Search = () => {
 
     const [searchArray, setSearchArray] = useState([]);
     const [errMessage, setErrMessage] = useState('');
-    const email = localStorage.getItem('email');
+    // const email = localStorage.getItem('email');
 
     const [check, setChecked] = useState(false);
     const [isLoading, setIsLoading] = useState(true)
