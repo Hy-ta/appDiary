@@ -31,7 +31,7 @@ const Search = () => {
             } 
     };
 
-    const getSearchHandler = async (searchValue, searchStDateValue, searchEdDateValue, email) => {
+    const getSearchHandler = async (searchValue, searchStDateValue, searchEdDateValue) => {
         try{
             axios.get(`api/diary/search?title=${searchValue ? searchValue : ''}&startDate=${searchStDateValue ? searchStDateValue: ''}&endDate=${searchEdDateValue ? searchEdDateValue: ''}&email=${email ? email: ''}`)
                     .then(res => {
@@ -47,21 +47,21 @@ const Search = () => {
     }
 
     useEffect(() => {
-            userInfo(),
-            DataArray()
+            userInfo()
+            // DataArray()
     },[])
 
     useEffect(() => {
-        getSearchHandler(searchValue, searchStDateValue, searchEdDateValue, email)
-    }, [searchValue, searchStDateValue, searchEdDateValue, email]);
+        getSearchHandler(searchValue, searchStDateValue, searchEdDateValue)
+    }, [searchValue, searchStDateValue, searchEdDateValue]);
 
 
-    const DataArray = () => {
-        sessionStorage.email = JSON.stringify({ name: "name" });
-        // sometime later
-        let user = JSON.parse( sessionStorage.user );
-        // alert( user.name ); // John
-    }
+    // const DataArray = () => {
+    //     sessionStorage.email = JSON.stringify({ name: "name" });
+    //     // sometime later
+    //     let user = JSON.parse( sessionStorage.user );
+    //     // alert( user.name ); // John
+    // }
 
     return(
         <div className="table-responsive">
