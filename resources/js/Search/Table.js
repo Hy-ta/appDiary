@@ -20,7 +20,7 @@ const Table = (props) => {
                                     props.state.filter(data => data.created_at !== null).map((data, key)=> {
                                         return(
                                                 <tr key={data.id}>
-                                                    <td>
+                                                    <td className="py-4">
                                                         <Link 
                                                             className='pt-3 mb-3' 
                                                             to={`/${data.id}`}
