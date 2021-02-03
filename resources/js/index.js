@@ -16,7 +16,7 @@ import NewDiary from './NewDiary/NewDiary';
 import ListDiary from './ListDiary/ListDiary';
 import EditDiary from './ListDiary/EditDiary';
 import EditInfo from './ListDiary/EditInfo';
-import NotFound from './components/NotFound';
+// import NotFound from './components/NotFound';
 
 
 function Index() {
@@ -37,7 +37,7 @@ function Index() {
                 <PrivateRoute path="/new_diary" component={NewDiary} />
                 <PrivateRoute path="/list_diary" component={ListDiary} />
                 <PrivateRoute path="/:id" component={EditDiary} />
-                <PublicRoute component={NotFound} />
+                {/* <PublicRoute component={NotFound} /> */}
             </Switch>
         </Router>
     );
