@@ -39,34 +39,41 @@ const EditDiary = (props) => {
                 <Navbar />
                 <div className='row justify-content-center'>
                     <div className='col-md-8'>
-                            <div className="py-3" key={state.id}>
+                            <div className="py-3" key={state.title}>
                                 {!edit ? 
-                                    
+                                    <div>
                                         <div className='card'>
                                             <div className='card-header'>{state.title}</div>
 
                                             <div className='card-body'>
                                                 <ul className='list-group list-group-flush'>
-                                                    <li>{state.id}</li>
+                                                    <li>{state.title}</li>
                                                     <li>{state.description}</li>
+                                                    <li>{state.startDate}</li>
+                                                    <li>{state.endDate}</li>
                                                     <li>{state.created_at}</li>
                                                 </ul>
                                             </div>
                                         </div> 
+                                        <div className="py-2">
+                                            <button 
+                                                className="btn btn-success"
+                                                onClick={editHandler}          
+                                            >
+                                                Edit
+                                            </button>
+                                        </div>
+                                    
+                                    </div>
                                         : 
                                         <EditInfo 
                                             state={state}
                                             setEditting={edit}
                                         />
+                                    
                                 }
-                                <div className="py-2">
-                                    <button 
-                                        className="btn btn-success"
-                                        onClick={editHandler}          
-                                        >
-                                        Edit
-                                    </button>
-                                </div>
+
+                                
                             </div>
                     </div>
                 </div>

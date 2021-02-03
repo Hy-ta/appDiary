@@ -39,10 +39,11 @@ const ListDiaryMap = (props) => {
                             />
                                     
                                     <ul className='list-group list-group-flush'>
-                                        <li>{data.id}</li>
-                                        <li>{data.title}</li>
-                                        <li>{data.description}</li>
-                                        <li>{data.created_at}</li>
+                                        <li className="py-2 mx-4">{data.title}</li>
+                                        <li className="py-2 mx-4">{data.description}</li>
+                                        <li className="py-2 mx-4">{data.startDate}</li>
+                                        <li className="py-2 mx-4">{data.endDate}</li>
+                                        <li className="py-2 mx-4">{data.created_at}</li>
                                     </ul>
                         </div>
                     </div>

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { Children, useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
 
 const EditInfo = (props) => {
     
@@ -11,7 +10,10 @@ const EditInfo = (props) => {
     const inputChangeHandler = (e) => {
         const { name, value } = e.target
 
-        setState({ ...state, [name]: value })
+        setState({ 
+                ...state, 
+                [name]: value 
+            })
 
         console.log(state)
     }
@@ -19,6 +21,8 @@ const EditInfo = (props) => {
     const updateHandler = () => {
         try{
             axios.post(`api/diary/update`, state)
+            // axios.post(`api/diary/update?title=${state.title ? state.title: ''}&description=${state.description ? state.description: ''}&startDate=${state.startDate ? state.startDate: ''}&endDate=${state.endDate ? state.endDate: ''}`)
+
                     .then(res => {
                         console.log('update successfully!!', res);
                     })
@@ -100,7 +104,14 @@ const EditInfo = (props) => {
                                                     
                         <span className="text-danger"></span>
                         </div>
-                        
+                        <div className="py-2">
+                            <button 
+                                className="btn btn-primary"
+                                onClick={updateHandler}          
+                                >
+                                SAVE
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>

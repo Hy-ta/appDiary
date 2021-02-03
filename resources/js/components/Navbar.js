@@ -20,7 +20,7 @@ const Navbar = (props) => {
                             <Link to="/" className="btn btn-secondary" onClick={logoutHandler}> <span className="text-danger">Logout</span></Link>
                             <Link to="/new_diary" className="btn btn-secondary"> <span className="text-dark">New</span></Link>
                             <Link to="/list_diary" className="btn btn-secondary"> <span className="text-dark">Lists</span></Link>
-                            <a href="#" className="btn btn-secondary"> <span className="text-dark">On process</span></a>
+                            {/* <a href="#" className="btn btn-secondary"> <span className="text-dark">On process</span></a> */}
                             <Link to="/search" className="btn btn-secondary"> <span className="text-dark">Search</span></Link>
                         </div>
                     </div>

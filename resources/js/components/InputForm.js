@@ -34,14 +34,15 @@ class InputForm extends Component {
                             {/* 1 */}
                             <FormGroup className="row py-4">
                               <div className="pb-2 col-sm-1">
-                                <Label>Title:</Label>
+                                <Label className="pt-2">Title:</Label>
                               </div>
                               <div className="col-sm-2">
                                   <Input 
+                                    className="ml-2 form-control"
                                     type="text" 
                                     name="title"
                                     value={this.props.value}
-                                    placeholder="Title" 
+                                    placeholder="Type here..." 
                                     onChange={(e) => this.props.setSearchValue(e.target.value)}
                                     />
                               </div>

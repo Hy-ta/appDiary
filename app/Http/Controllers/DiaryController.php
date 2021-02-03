@@ -89,13 +89,11 @@ class DiaryController extends Controller
 
     public function update(Request $request)
     {
-        $diary = array(
-            'title' => $request->title,
-            'description' => $request->description,
-            'startDate' => $request->startDate,
-            'endDate' => $request->endDate
-        );
-        
+        $id = $request->id;  
+        $diary = Diary::where('id', '=', $id)->first();
+
+        $diary->update($request->all());
+        return response()->json(['status' => 'success', $diary], 200);  
     }
 }
 
